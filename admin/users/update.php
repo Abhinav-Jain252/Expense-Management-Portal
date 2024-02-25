@@ -1,0 +1,175 @@
+<?php
+    include("../../conn.php");
+?>
+
+<!DOCTYPE html>
+<html data-wf-page="649405786f67f1e064203600">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Admin Page - Update User</title>
+    <link
+        href="../../style.css"
+        rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    
+</head>
+
+<body>
+    <div style="opacity:0" class="page-wrapper">
+        <div data-w-id="da732deb-5db6-156b-08c9-e9fd059bc49f" data-animation="default" data-collapse="medium"
+            data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="header-wrapper w-nav">
+            <div class="container-default w-container">
+                <div class="header-content-wrapper"><a href="../dashboard/index.php" aria-current="page"
+                        class="logo-link-wrapper w-nav-brand w--current">JSW ISPAT SPECIAL SOLUTIONS LIMITED</a>
+                    <div class="header-right-side-container">
+                    <div style="text-align: center;"><?php $user = $_COOKIE['user']; ?> <?php echo $user ?> </div>
+                        <div class="hidden-on-mbl">
+                        
+                            <div class="buttons-row gap-column-12px"><a data-w-id="dc3b625c-4a68-4ebe-9b74-d3193fa9f32f"
+                                    href="../../Login/index.php" class="btn-primary w-inline-block">
+                                    <div class="flex-horizontal gap-column-4px">
+                                        <div>Log Out</div>
+                                    </div>
+                                </a></div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-section pd-bottom-64px wf-section">
+            <div class="container-default w-container">
+                <div class="grid-2-columns main-dashboard-grid">
+                    <div class="sticky-top hidden-on-tablet">
+                        <div id="w-node-_33df89bc-f82c-cc1e-d5c4-4959632564a9-632564a9" class="sidebar-container">
+                            <div class="grid-1-column sidebar-links-grid mg-bottom-48px">
+                                <a href="../dashboard/index.php" aria-current="page"
+                                    class="sidebar-link w-inline-block w--current">
+                                        <span class="las la-igloo"></span>
+                                    <div class="text-100 medium">Dashboard</div>
+
+                                </a><a href="index.php" class="sidebar-link w-inline-block">
+                                <span class="las la-user-tie"></span>
+                                    <div class="text-100 medium active">Users</div>
+
+                                </a><a href="../approver/index.php" class="sidebar-link w-inline-block">
+                                <span class="las la-user-plus"></span>
+                                    <div class="text-100 medium">Approvers</div>
+
+                                </a><a href="../department/index.php" class="sidebar-link w-inline-block">
+                                <span class="las la-building"></span>
+                                    <div class="text-100 medium">Department</div>
+
+                                </a><a href="../division/index.php" class="sidebar-link w-inline-block">
+                                <span class="las la-layer-group"></span>
+                                    <div class="text-100 medium">Division</div>
+
+                                </a><a href="../location/index.php" class="sidebar-link w-inline-block">
+                                <span class="las la-location-arrow"></span>
+                                    <div class="text-100 medium">Location</div>
+
+                                </a><a href="../designation/index.php" class="sidebar-link w-inline-block">
+                                <span class="las la-user-graduate"></span>
+                                    <div class="text-100 medium">Designation</div>
+                                </a></div>
+                        </div>
+                    </div>
+                    <div id="w-node-_4df30bee-185d-16f7-3c30-cf645872aa85-64203600" class="dashboard-main-content">
+                    <div class="container">
+        <div class="row my-4">
+            <div class="col-lg-10 mx-auto">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h4>Update User</h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <div id="show_alert"></div>
+                        <form action="#" method="POST" id="add_form" enctype="multipart/form-data">
+                            <div id="show_item">
+                                <div class="row">
+
+                                <?php
+                
+
+                $ids = $_GET['id'];
+
+                                    $showquery = "select * from login where username='$ids'";
+                                    $showdata= mysqli_query($conn2,$showquery);
+                                    $arrdata = mysqli_fetch_array($showdata);
+
+                                    if(isset($_POST['submit'])){
+                                        $idupdate = $_GET['id'];
+                                        $name = $_POST['name'];
+                                        $phone = $_POST['phone'];
+                                        $username = $_POST['username'];
+                                        $password = $_POST['password'];
+                                        $emp_id = $_POST['emp_id'];
+
+                                        
+        
+                                        $updatequery = "UPDATE `login` SET `name`='$name',`phone`='$phone',`username`='$username',`password`='$password',`emp_id`='$emp_id' where username='$idupdate'";
+
+                                        $res = mysqli_query($conn2,$updatequery);
+
+                                        echo '<script>window.location="index.php"</script>';
+                                    }
+            ?>
+
+                                    <div class="col-md-4 mb-3">
+                                        Name
+                                        <input type="text" name="name" id="name" class="form-control" value="<?php echo $arrdata['name']; ?>" placeholder="Enter name" required>
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        Employee ID
+                                        <input type="text" name="emp_id" class="form-control" id="usertype" value="<?php echo $arrdata['emp_id']; ?>" placeholder="Enter Employee ID">
+                                    </div>
+                                    
+                                    <div class="col-md-4 mb-3">
+                                        Phone Number
+                                        <input type="number" name="phone" class="form-control" id="phone" value="<?php echo $arrdata['phone']; ?>" placeholder="Enter phone" required>
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        Username
+                                        <input type="text" name="username" class="form-control" id="username" value="<?php echo $arrdata['username']; ?>" placeholder="Enter username" required>
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        Password
+                                        <input type="password" name="password" class="form-control" id="password" value="<?php echo $arrdata['password']; ?>" placeholder="Enter password" required>
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        usertype
+                                        <input type="text" name="usertype" class="form-control" id="usertype" value="user" readonly>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <center>
+                            <div>
+                                <input type="submit" value="Submit" name="submit" class="btn btn-primary w-50" id="add_btn">
+                            </div></center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../../index.js"
+        type="text/javascript"></script>
+</body>
+
+</html>
